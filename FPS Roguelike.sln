@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{A5D68BB3-71E2-8403-4912-07F22AB2AA59}") = "FPS Roguelike", "Assembly-CSharp-firstpass.csproj", "{8047C27D-26CC-CE8E-CCAE-1B57296796EB}"
+EndProject
+Project("{A5D68BB3-71E2-8403-4912-07F22AB2AA59}") = "FPS Roguelike", "Assembly-CSharp.csproj", "{9EB92FE8-A79E-FDBA-6F72-20F4188B2B66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8047C27D-26CC-CE8E-CCAE-1B57296796EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8047C27D-26CC-CE8E-CCAE-1B57296796EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8047C27D-26CC-CE8E-CCAE-1B57296796EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8047C27D-26CC-CE8E-CCAE-1B57296796EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EB92FE8-A79E-FDBA-6F72-20F4188B2B66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EB92FE8-A79E-FDBA-6F72-20F4188B2B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EB92FE8-A79E-FDBA-6F72-20F4188B2B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EB92FE8-A79E-FDBA-6F72-20F4188B2B66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
