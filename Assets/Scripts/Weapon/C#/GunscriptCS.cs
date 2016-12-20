@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Gunscript : MonoBehaviour
+public class GunscriptCS : Gun
 {
     public float range = 500.0f; //Maximum raycast distance
     public float fireRate = 0.5f; //Minimum time (in seconds) between shots
@@ -9,6 +9,7 @@ public class Gunscript : MonoBehaviour
     public bool isSpread = false; // Is the gun a shotgun (true) or not (false)
     public bool isSingleLoad = false; // Does the gun load a single bullet at a time (true) or a whole magazine (false)
     public int shotsFired = 1; //Number of shots fired; more than 1 = burst fire.
+    public int burstAmnt = 1;
 	float reloadTime = 0.0f; //Amount of time you are unable to do certain actions while reloading. Counts down while reloading
 	float reloadTimeEmpty = 0.0f;  //Same as above, but when magazine is empty
 	float equipTime = 0.0f; //Actual time-after-equip-until-player-can-fire timer
@@ -144,7 +145,8 @@ public class Gunscript : MonoBehaviour
     bool drawCrosshair = true; // Draw the crosshair?
 
 //Timers for firing, reloading, and equipping.
-    float fireTimer = 0.0f; // Timer until next fire
+    public float fireTimer = 0.0f; // Timer until next fire
+    public float burstTimer = 0.0f; // Timer until burst is finished
     float reloadTimer = 0.0f; // Timer until next reload
     float equipTimer = 0.0f; // Timer until player can fire after equipping
     int burstAmount = 0; //Amount of shots still left to first in the burst
@@ -209,15 +211,22 @@ public class Gunscript : MonoBehaviour
         //Shoot the gun!
         if (Input.GetButtonDown("Fire1") && !isAutomatic)
         {
-            Fire(shotsFired);
+            if (burstTimer <= 0)
+            {
+                burstTimer = fireRate * burstAmnt;
+            }
         }
 
         //Shoot the gun as long as the trigger is held down!
         if (Input.GetButton("Fire1") && isAutomatic)
         {
-            Fire(1);
+            Fire();
         }
 
+        if (burstTimer > 0)
+        {
+            Fire();
+        }
         //Reload the gun on pressing user-defined Reload key
         //Checks to see if you are out of reserve, then if your current ammo count is below your max, then if you're already reloading
         //Sets the reload timer to the same length as the inspector-defined reload animation
@@ -275,6 +284,7 @@ public class Gunscript : MonoBehaviour
 
         //Timers
         fireTimer -= Time.deltaTime;
+        burstTimer -= Time.deltaTime;
         equipTimer -= Time.deltaTime;
 
         //Changes to spread based on timing, as long as you aren't firing.
@@ -335,7 +345,6 @@ public class Gunscript : MonoBehaviour
         }*/
 
         //cameraFOV = wepCamera.GetComponent.("Camera").fieldOfView; //FOV of the weapon camera
-
     }
 
     void OnGUI()
@@ -363,7 +372,7 @@ public class Gunscript : MonoBehaviour
     }
 
 
-    void Fire(int burstAmnt)
+    void Fire()
     {
         //If you are firing or equipping, no bueno.
         if (fireTimer > 0 || equipTimer > 0)
@@ -371,14 +380,14 @@ public class Gunscript : MonoBehaviour
             return;
         }
 
+        //No ammo in magazine or reserve, no shooting
+        if (ammoCount <= 0 && ammoReserve <= 0)
+        {
+            return;
+        }
+
         if (fireTimer <= 0)
         {
-
-            //No ammo in magazine or reserve, no shooting
-            if (ammoCount <= 0 && ammoReserve <= 0)
-            {
-                return;
-            }
             //Automatically start reloading from empty if you attempt to fire with an empty mag
             if (ammoCount <= 0 && ammoReserve > 0 && !reloading)
             {
@@ -399,7 +408,9 @@ public class Gunscript : MonoBehaviour
                 {
                     for (var i = 0; i < shotgunPellets; i++)
                     {
-                        FireShot();
+                        //FireShot();
+                        FireRaycast(cameraLoc, base.SpreadCalc(cameraLoc, aiming, spreadAmnt, spreadAmntAim), damageAmount, range);
+                        fireSound.Play();
                         reloading = false;
                         reloadTimer = 0;
                     }
@@ -410,23 +421,25 @@ public class Gunscript : MonoBehaviour
                 //Regular, single-bullet gun!	
                 if (!isSpread)
                 {
-                    FireShot();
+                    //FireShot();
+                    FireRaycast(cameraLoc, base.SpreadCalc(cameraLoc, aiming, spreadAmnt, spreadAmntAim), damageAmount, range);
                     SpreadChng();
+                    fireSound.Play();
                     reloading = false;
                     reloadTimer = 0;
                 }
 
-                fireTimer = fireRate * burstAmnt; //Set timer to the fire rate to prevent firing too quick. Only action timer not to use animation length.
+                fireTimer = fireRate; //Set timer to the fire rate to prevent firing too quick. Only action timer not to use animation length.
                 ammoCount--; //Subtract an ammo!
                 burstAmount--; //Countdown the burst timer
             }
         }
     }
 
-    //The actual raycast for each shot
+    /*The actual raycast for each shot
     void FireShot()
     {
-        Vector3 direction = SpreadCalc();
+        Vector3 direction = base.SpreadCalc(cameraLoc, aiming, spreadAmnt, spreadAmntAim);
         RaycastHit hit;
 
         if (ammoCount > 0)
@@ -455,7 +468,7 @@ public class Gunscript : MonoBehaviour
             }
         }
         else { return; }
-    }
+    }*/
 
     //Reloading
     void Reload()
@@ -486,34 +499,6 @@ public class Gunscript : MonoBehaviour
                 reloading = false;
             }
         }
-    }
-
-
-
-    //This function randomizes the raycast by an amount set in the inspector panel
-    //I honestly don't understand quaternion math at all, but I fucked around until this works
-    //PROGRAMMING IS COOL
-    Vector3 SpreadCalc()
-    {
-        float vx = 1.00f;
-        float vy = 1.00f;
-        float vz = 1.00f;
-
-        if (aiming)
-        {
-            vx = (1 - 2 * Random.value) * spreadAmntAim; //Why does this work?
-            vy = (1 - 2 * Random.value) * spreadAmntAim; //I honestly don't know why
-            vz = 1.00f;
-        }
-
-        if (!aiming)
-        {
-            vx = (1 - 2 * Random.value) * spreadAmnt; //I mean it makes sense to multiply a random to get the raycast within the spread values
-            vy = (1 - 2 * Random.value) * spreadAmnt; //But WHY THE FUCK DOES IT WORK
-            vz = 1.00f;
-        }
-
-        return cameraLoc.transform.TransformDirection(new Vector3(vx, vy, vz));
     }
 
     void SpreadChng()
