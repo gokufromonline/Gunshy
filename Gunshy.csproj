@@ -92,8 +92,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Weapon\C%23\BurstFire.cs" />
     <Compile Include="Assets\Scripts\Weapon\C%23\Damage.cs" />
+    <Compile Include="Assets\Scripts\Weapon\C%23\Gun.cs" />
     <Compile Include="Assets\Scripts\Weapon\C%23\Gunscript.cs" />
+    <Compile Include="Assets\Scripts\Weapon\C%23\GunscriptCS.cs" />
     <Compile Include="Assets\Scripts\Weapon\C%23\HUD.cs" />
+    <Compile Include="Assets\Scripts\Weapon\C%23\PowerUp.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue %2B100).shader" />

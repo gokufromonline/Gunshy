@@ -215,16 +215,16 @@ public class Gunscript : MonoBehaviour
         //Shoot the gun as long as the trigger is held down!
         if (Input.GetButton("Fire1") && isAutomatic)
         {
-<<<<<<< HEAD
+
             Fire(shotsFired);
         }
 
         if (barrelAttached)
         {
             dmgMult = 2.0f;
-=======
+
             Fire(1);
->>>>>>> refs/remotes/origin/refactor
+
         }
 
         //Reload the gun on pressing user-defined Reload key
