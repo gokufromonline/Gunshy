@@ -48,8 +48,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Weapon\C#\BurstFire.cs" />
      <Compile Include="Assets\Scripts\Weapon\C#\Damage.cs" />
+     <Compile Include="Assets\Scripts\Weapon\C#\Gun.cs" />
      <Compile Include="Assets\Scripts\Weapon\C#\Gunscript.cs" />
+     <Compile Include="Assets\Scripts\Weapon\C#\GunscriptCS.cs" />
      <Compile Include="Assets\Scripts\Weapon\C#\HUD.cs" />
+     <Compile Include="Assets\Scripts\Weapon\C#\PowerUp.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/drago/Documents/Projects/FPS Roguelike/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
