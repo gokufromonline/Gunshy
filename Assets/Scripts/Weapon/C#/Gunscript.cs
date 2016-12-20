@@ -215,7 +215,7 @@ public class Gunscript : MonoBehaviour
         //Shoot the gun as long as the trigger is held down!
         if (Input.GetButton("Fire1") && isAutomatic)
         {
-            Fire();
+            Fire(shotsFired);
         }
 
         if (barrelAttached)
