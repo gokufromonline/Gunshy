@@ -4,7 +4,7 @@ using UnityEngine;
 using Image = UnityEngine.UI.Image;
 using Text = UnityEngine.UI.Text;
 
-public class Damage : MonoBehaviour {
+public class Enemy : MonoBehaviour {
 
     public int health = 10;
     public int maxHealth = 30;

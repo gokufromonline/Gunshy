@@ -63,4 +63,30 @@ public class Gun : MonoBehaviour {
 
         else { return Vector3.zero; }
     }
+
+    //Beginning of the reloading refactor
+    /*public void Reload(int ammoCount, int ammoReserve, int ammoCountMax, bool isSingleLoad)
+    {
+        if (isSingleLoad)
+        {
+            ammoCount++;
+            ammoReserve--;
+        }
+        if (!isSingleLoad)
+        {
+            var z = ammoCount + ammoReserve;
+
+            if (z > ammoCountMax)
+            {
+                ammoReserve -= ammoCountMax - ammoCount;
+                ammoCount += ammoCountMax - ammoCount;
+            }
+
+            if (z <= ammoCountMax)
+            {
+                ammoCount = ammoReserve + ammoCount;
+                ammoReserve = 0;
+            }
+        }
+    }*/
 }

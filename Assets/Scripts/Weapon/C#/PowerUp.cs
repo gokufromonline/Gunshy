@@ -20,17 +20,10 @@ public class PowerUp : MonoBehaviour {
         plyr = GameObject.FindGameObjectWithTag("gun1");
         GunscriptCS gs = plyr.gameObject.GetComponent<GunscriptCS>();
 
-        gs.ammoCount += 12;
-        gs.ammoCountMax += 12;
-
         gs.fireRate -= fireRateChange;
 
         gs.damageAmount += damageChange;
         gs.burstAmnt += burstChange;
-
-        //gs.stats.isSpread = true;
-
-        //gs.ammo.shotgunPellets = 2;
 
         Destroy(this.gameObject);
     }

@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Weapon\C#\BurstFire.cs" />
-     <Compile Include="Assets\Scripts\Weapon\C#\Damage.cs" />
+     <Compile Include="Assets\Scripts\Weapon\C#\Enemy.cs" />
      <Compile Include="Assets\Scripts\Weapon\C#\Gun.cs" />
      <Compile Include="Assets\Scripts\Weapon\C#\Gunscript.cs" />
      <Compile Include="Assets\Scripts\Weapon\C#\GunscriptCS.cs" />
